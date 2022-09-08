@@ -35,13 +35,34 @@ ggplot(midwest, aes(x=percollege, y = percbelowpoverty)) +
 ```
 
 ## Exercise 3
-
-(Type your answer to Exercise 3 here. Add code chunks as needed. Don't forget to label your code chunk. Do not use spaces in code chunk labels.)
+It appears that in most of the states,if you have a higher percentage of people with a college degree, there is a lower percentage of people below poverty. There is one statistic from Wisconsin that has a bit of an outlier with a very high percentage of people below poverty. In Ohio it seems that there is less people with college degrees. Illinois tends to have a high percentage of people in poverty regardless of the percentage of people with college degress.
 
 ## Exercise 4
+I prefer this plot because it is much easier to read because there is less overlap amongst dots.
+```{r}
+ggplot(midwest, aes(x=percollege, y = percbelowpoverty)) +
+  geom_point(aes(color = state)) +
+  labs(title = "College Degree vs. Below Poverty By State",x = "People with College Degree(%)",y = "People Below Poverty(%)", color = "State") +
+  scale_color_viridis_d() +
+  facet_wrap(~state) +
+  geom_smooth(se = FALSE)
+```
 
 ## Exercise 5
+Ohio and Illinois have the most consistent size of counties since their boxes and tails are the smallest. Michigan has the largest county because it contains the dot furthest to the right and it is "1
+```{r}
+ggplot(midwest, aes(x = area)) +
+geom_boxplot() + 
+  facet_wrap(~state)
+```
 
 ## Exercise 6
+
+Indiana and Ohio have the highest percentage of counties located in a metropolitan area.
+```{r}
+ midwest <- midwest |>
+  mutate(metro = if_else(inmetro == 1, "Yes", "No"))
+ggplot(midwest, aes(x = state, fill = metro)) + geom_bar() + scale_y_continuous(breaks=c(0,1))
+```
 
 ## Exercise 7
