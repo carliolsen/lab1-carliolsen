@@ -35,10 +35,13 @@ ggplot(midwest, aes(x=percollege, y = percbelowpoverty)) +
 ```
 
 ## Exercise 3
+
 It appears that in most of the states,if you have a higher percentage of people with a college degree, there is a lower percentage of people below poverty. There is one statistic from Wisconsin that has a bit of an outlier with a very high percentage of people below poverty. In Ohio it seems that there is less people with college degrees. Illinois tends to have a high percentage of people in poverty regardless of the percentage of people with college degress.
 
 ## Exercise 4
+
 I prefer this plot because it is much easier to read because there is less overlap amongst dots.
+
 ```{r}
 ggplot(midwest, aes(x=percollege, y = percbelowpoverty)) +
   geom_point(aes(color = state)) +
@@ -49,7 +52,9 @@ ggplot(midwest, aes(x=percollege, y = percbelowpoverty)) +
 ```
 
 ## Exercise 5
+
 Ohio and Illinois have the most consistent size of counties since their boxes and tails are the smallest. Michigan has the largest county because it contains the dot furthest to the right and it is "1
+
 ```{r}
 ggplot(midwest, aes(x = area)) +
 geom_boxplot() + 
@@ -59,10 +64,21 @@ geom_boxplot() +
 ## Exercise 6
 
 Indiana and Ohio have the highest percentage of counties located in a metropolitan area.
+
 ```{r}
- midwest <- midwest |>
+midwest <- midwest |>
   mutate(metro = if_else(inmetro == 1, "Yes", "No"))
-ggplot(midwest, aes(x = state, fill = metro)) + geom_bar() + scale_y_continuous(breaks=c(0,1))
+ggplot(midwest, aes(x = state)) + 
+  geom_bar(aes(fill = metro), position = "fill") + 
+  labs(title = "Metro Check", x = "State", y = "Distribution", fill = "Metro")
 ```
 
 ## Exercise 7
+
+```{r}
+ggplot(midwest, aes(x = percollege, y = popdensity)) +
+  geom_point(alpha = 0.5, size = 2, aes(color = percbelowpoverty)) +
+  labs(title = "Do people with college degrees tend to live in denser areas?",x = "% college educated",y = "Population density (person / unit area)", color = "% below \npoverty line") +
+  facet_wrap(~state) +
+  theme_minimal()
+```
